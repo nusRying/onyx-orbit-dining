@@ -24,12 +24,14 @@ export default function NarrativeOverlay() {
         const mainLine = item.querySelector('.' + styles.narrativeLine);
         const subLine = item.querySelector('.' + styles.subLine);
         
+        if (!mainLine || !subLine) return;
+
         gsap.to(mainLine, {
           opacity: 1,
           y: 0,
           duration: 1,
           scrollTrigger: {
-            trigger: 'main',
+            trigger: containerRef.current,
             start: `${i * 33}% center`,
             end: `${(i + 1) * 33}% center`,
             scrub: true,
@@ -43,7 +45,7 @@ export default function NarrativeOverlay() {
           duration: 1,
           delay: 0.2,
           scrollTrigger: {
-            trigger: 'main',
+            trigger: containerRef.current,
             start: `${i * 33}% center`,
             end: `${(i + 1) * 33}% center`,
             scrub: true,

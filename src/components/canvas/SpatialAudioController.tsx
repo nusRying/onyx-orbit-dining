@@ -14,11 +14,9 @@ export default function SpatialAudioController() {
   const [listener] = useState(() => new THREE.AudioListener());
   const positionalRef = useRef<THREE.PositionalAudio>(null);
 
-  // GitHub Pages deployment version: v1.0.2 (Cache Invalidator)
+  // Helper to resolve asset paths reliably across different environments
   const assetPath = (path: string) => {
-    const fullPath = `/onyx-orbit-dining${path}`;
-    console.log(`[Celestial] Resolving asset: ${fullPath}`);
-    return fullPath;
+    return path;
   };
 
   useEffect(() => {

@@ -13,16 +13,7 @@ export default function Preloader() {
   const brandName = "L'Experience";
 
   useEffect(() => {
-    // 1. Staggered Brand Entrance (Run once)
-    if (brandRef.current) {
-      const letters = brandRef.current.children;
-      gsap.fromTo(letters, 
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, stagger: 0.05, ease: "power3.out", delay: 0.2 }
-      );
-    }
-
-    // 2. Smooth loading progress simulation
+    // Smooth loading progress (Eased) - Runs ONCE on mount
     const loadSim = { value: 0 };
     gsap.to(loadSim, {
       value: 100,
@@ -30,7 +21,16 @@ export default function Preloader() {
       ease: "power2.inOut",
       onUpdate: () => setPercentage(Math.floor(loadSim.value))
     });
-  }, []);
+
+    // Staggered Brand Entrance
+    if (brandRef.current) {
+      const letters = brandRef.current.children;
+      gsap.fromTo(letters, 
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.05, ease: "power3.out", delay: 0.2 }
+      );
+    }
+  }, []); // Run on mount only
 
   useEffect(() => {
     // 3. Exit animation when progress hits 100%
