@@ -2,7 +2,7 @@
 
 import * as THREE from 'three';
 import { shaderMaterial } from '@react-three/drei';
-import { extend, ReactThreeElement } from '@react-three/fiber';
+import { extend, ThreeElement } from '@react-three/fiber';
 
 const GlistenMaterialImpl = shaderMaterial(
   {
@@ -80,7 +80,7 @@ extend({ GlistenMaterialImpl });
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      glistenMaterialImpl: ReactThreeElement<typeof GlistenMaterialImpl>;
+      glistenMaterialImpl: ThreeElement<typeof GlistenMaterialImpl>;
     }
   }
 }
