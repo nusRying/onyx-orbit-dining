@@ -44,6 +44,7 @@ export default function FixedCanvas() {
             />
             
             {/* Photography-inspired lens distortion */}
+            {/* @ts-ignore */}
             <ChromaticAberration 
               offset={new Vector2(0.001, 0.001)} 
               radialModulation={true}
