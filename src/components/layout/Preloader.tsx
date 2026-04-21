@@ -8,26 +8,36 @@ export default function Preloader() {
   const [percentage, setPercentage] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
+  const brandRef = useRef<HTMLDivElement>(null);
+
+  const brandName = "L'Experience";
 
   useEffect(() => {
     const tl = gsap.timeline();
     
-    // Simulate loading progress
-    const interval = setInterval(() => {
-      setPercentage((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return prev + Math.floor(Math.random() * 10);
-      });
-    }, 150);
+    // Smooth loading progress (Eased)
+    const loadSim = { value: 0 };
+    gsap.to(loadSim, {
+      value: 100,
+      duration: 3,
+      ease: "power2.inOut",
+      onUpdate: () => setPercentage(Math.floor(loadSim.value))
+    });
+
+    // Staggered Brand Entrance
+    if (brandRef.current) {
+      const letters = brandRef.current.children;
+      gsap.fromTo(letters, 
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.05, ease: "power3.out", delay: 0.2 }
+      );
+    }
 
     if (percentage === 100) {
-      tl.to(textRef.current, {
-        y: -20,
+      tl.to(brandRef.current?.children || [], {
+        y: -10,
         opacity: 0,
+        stagger: 0.03,
         duration: 0.8,
         ease: 'power4.inOut'
       })
@@ -45,15 +55,17 @@ export default function Preloader() {
         }
       });
     }
-
-    return () => clearInterval(interval);
   }, [percentage]);
 
   return (
     <div ref={containerRef} className={styles.container}>
       <div className={styles.content}>
-        <div ref={textRef} className={styles.text}>
-          <span className={styles.brand}>L&apos;Experience</span>
+        <div className={styles.text}>
+          <div ref={brandRef} className={styles.brand}>
+            {brandName.split('').map((char, i) => (
+              <span key={i} style={{ display: 'inline-block' }}>{char}</span>
+            ))}
+          </div>
           <span className={styles.percentage}>{percentage}%</span>
         </div>
         <div className={styles.progressBar}>

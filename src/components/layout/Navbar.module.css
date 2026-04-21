@@ -9,6 +9,17 @@
   align-items: center;
   z-index: 100;
   mix-blend-mode: difference;
+  transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s ease;
+}
+
+.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menuActive {
+  mix-blend-mode: normal;
 }
 
 .logo a {
