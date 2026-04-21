@@ -2,7 +2,7 @@
 
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
-import Scene from './Scene';
+import Scene from '@/components/canvas/Scene';
 import { 
   Bloom, 
   EffectComposer, 

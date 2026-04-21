@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  // If your repo is NOT <username>.github.io, add basePath: '/your-repo-name'
+  basePath: '/onyx-orbit-dining',
 };
 
 export default nextConfig;

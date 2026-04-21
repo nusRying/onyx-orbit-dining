@@ -11,7 +11,7 @@ export default function AudioToggle() {
   useEffect(() => {
     // Note: In a real project, we would use a high-quality ambient loop.
     // For now, we set up the architecture for it.
-    audioRef.current = new Audio('/ambient-loop.mp3');
+    audioRef.current = new Audio('ambient-loop.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.2;
 

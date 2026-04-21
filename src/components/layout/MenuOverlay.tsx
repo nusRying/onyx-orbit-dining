@@ -5,6 +5,8 @@ import { useStore } from '@/store/useStore';
 import gsap from 'gsap';
 import styles from './MenuOverlay.module.css';
 
+import Link from 'next/link';
+
 const menuLinks = [
   { label: 'The Experience', href: '/' },
   { label: 'Our Story', href: '/story' },
@@ -75,7 +77,7 @@ export default function MenuOverlay() {
       <div ref={linksRef} className={styles.links}>
         {menuLinks.map((link, i) => (
           <div key={i} className={styles.linkItem}>
-            <a href={link.href}>{link.label}</a>
+            <Link href={link.href}>{link.label}</Link>
           </div>
         ))}
       </div>
