@@ -8,14 +8,15 @@ import styles from './MenuOverlay.module.css';
 import Link from 'next/link';
 
 const menuLinks = [
-  { label: 'The Experience', href: '/' },
-  { label: 'Our Story', href: '/story' },
-  { label: 'The Menu', href: '/menu' },
-  { label: 'Reserve', href: '/reserve' },
+  { label: 'Celestial Journey', href: '/' },
+  { label: 'The Philosophy', href: '/story' },
+  { label: 'Gastronomy Menu', href: '/menu' },
+  { label: 'Secure a Moment', href: '/reserve' },
 ];
 
 export default function MenuOverlay() {
   const isMenuOpen = useStore((state) => state.isMenuOpen);
+  const toggleMenu = useStore((state) => state.toggleMenu);
   const containerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
@@ -32,30 +33,30 @@ export default function MenuOverlay() {
       })
       .to(gridRef.current.children, {
         scaleY: 1,
-        stagger: 0.1,
+        stagger: 0.05,
         duration: 0.8,
         ease: 'power4.inOut'
       })
-      .to(linksRef.current.children, {
+      .to(linksRef.current.querySelectorAll('.link-content'), {
         y: 0,
         opacity: 1,
         stagger: 0.05,
-        duration: 0.6,
+        duration: 0.7,
         ease: 'power3.out'
       }, '-=0.4');
     } else {
       const tl = gsap.timeline();
       
-      tl.to(linksRef.current.children, {
+      tl.to(linksRef.current.querySelectorAll('.link-content'), {
         y: 20,
         opacity: 0,
-        stagger: 0.05,
+        stagger: 0.03,
         duration: 0.4,
         ease: 'power3.in'
       })
       .to(gridRef.current.children, {
         scaleY: 0,
-        stagger: 0.05,
+        stagger: 0.03,
         duration: 0.6,
         ease: 'power4.inOut'
       })
@@ -69,15 +70,32 @@ export default function MenuOverlay() {
   return (
     <div ref={containerRef} className={styles.container}>
       <div ref={gridRef} className={styles.grid}>
-        {[...Array(5)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div key={i} className={styles.column}></div>
         ))}
       </div>
       
       <div ref={linksRef} className={styles.links}>
         {menuLinks.map((link, i) => (
-          <div key={i} className={styles.linkItem}>
-            <Link href={link.href}>{link.label}</Link>
+          <div 
+            key={i} 
+            className={styles.linkItem} 
+            onClick={() => {
+              if (link.label === 'Secure a Moment') {
+                useStore.getState().setIsBookingOpen(true);
+                toggleMenu(false);
+              } else {
+                toggleMenu(false);
+              }
+            }}
+          >
+            <div className="link-content" style={{ opacity: 0, transform: 'translateY(20px)' }}>
+              {link.label === 'Secure a Moment' ? (
+                <span style={{ cursor: 'pointer' }}>{link.label}</span>
+              ) : (
+                <Link href={link.href}>{link.label}</Link>
+              )}
+            </div>
           </div>
         ))}
       </div>

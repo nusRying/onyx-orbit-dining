@@ -11,6 +11,14 @@ interface State {
   toggleAudio: (enabled?: boolean) => void;
   masterVolume: number;
   setMasterVolume: (volume: number) => void;
+  isBookingOpen: boolean;
+  setIsBookingOpen: (open: boolean) => void;
+  bookingData: {
+    date: string;
+    guests: number;
+    name: string;
+  };
+  setBookingData: (data: Partial<State['bookingData']>) => void;
 }
 
 export const useStore = create<State>((set) => ({
@@ -24,4 +32,12 @@ export const useStore = create<State>((set) => ({
   toggleAudio: (enabled) => set((state) => ({ isAudioEnabled: enabled !== undefined ? enabled : !state.isAudioEnabled })),
   masterVolume: 0.5,
   setMasterVolume: (volume) => set({ masterVolume: volume }),
+  isBookingOpen: false,
+  setIsBookingOpen: (open) => set({ isBookingOpen: open }),
+  bookingData: {
+    date: '',
+    guests: 1,
+    name: '',
+  },
+  setBookingData: (data) => set((state) => ({ bookingData: { ...state.bookingData, ...data } })),
 }));

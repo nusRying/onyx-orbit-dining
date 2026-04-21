@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
 
 export const metadata: Metadata = {
-  title: "L'Experience - High-End Dining",
-  description: "A state-of-the-art immersive restaurant experience.",
+  title: "L'Experience — Celestial Gastronomy",
+  description: "An immersive sensory journey into haute cuisine. Where the ethereal meets the terrestrial — reserve your moment.",
 };
 
 import Navbar from "@/components/layout/Navbar";
@@ -25,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
         <Preloader />
         <SmoothScroll>
           <CustomCursor />

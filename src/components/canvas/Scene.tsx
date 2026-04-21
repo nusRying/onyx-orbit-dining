@@ -8,6 +8,9 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import LuxuryDish from './LuxuryDish';
 import SpatialAudioController from './SpatialAudioController';
+import BookingPortal from './BookingPortal';
+import BookingGlassForm from './BookingGlassForm';
+import { useStore } from '@/store/useStore';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,6 +69,53 @@ export default function Scene() {
     };
   }, [viewport, isMobile]);
 
+  const isBookingOpen = useStore((state) => state.isBookingOpen);
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+
+  useLayoutEffect(() => {
+    if (!cameraRef.current || !dishRef.current) return;
+
+    if (isBookingOpen) {
+      // Transition to Booking Portal
+      gsap.to(cameraRef.current.position, {
+        x: isMobile ? 0 : 5,
+        y: isMobile ? 5 : 1,
+        z: isMobile ? 8 : 4,
+        duration: 1.5,
+        ease: "power3.inOut"
+      });
+      gsap.to(dishRef.current.scale, {
+        x: 0.5,
+        y: 0.5,
+        z: 0.5,
+        duration: 1,
+        ease: "power2.inOut"
+      });
+      gsap.to(dishRef.current.position, {
+        x: -5,
+        duration: 1.5,
+        ease: "power3.inOut"
+      });
+    } else {
+      // Reset from Booking Portal based on current scroll position
+      // For simplicity in this prototype, we reset to a neutral state
+      gsap.to(cameraRef.current.position, {
+        x: 0,
+        y: 0,
+        z: isMobile ? 10 : 8,
+        duration: 1.5,
+        ease: "power3.inOut"
+      });
+      gsap.to(dishRef.current.scale, {
+        x: 1,
+        y: 1,
+        z: 1,
+        duration: 1,
+        ease: "power2.inOut"
+      });
+    }
+  }, [isBookingOpen, isMobile]);
+
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
     
@@ -93,6 +143,7 @@ export default function Scene() {
   return (
     <group ref={groupRef}>
       <PerspectiveCamera 
+        ref={cameraRef}
         makeDefault 
         position={[0, 0, isMobile ? 10 : 8]} 
         fov={isMobile ? 60 : 45} 
@@ -101,6 +152,13 @@ export default function Scene() {
       <Environment preset="night" />
       <ambientLight intensity={0.15} />
       <SpatialAudioController />
+      
+      {isBookingOpen && (
+        <group>
+          <BookingPortal />
+          <BookingGlassForm />
+        </group>
+      )}
       
       <spotLight 
         ref={lightRef}
