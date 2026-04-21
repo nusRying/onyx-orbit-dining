@@ -13,6 +13,12 @@ import {
 } from '@react-three/postprocessing';
 import { Vector2 } from 'three';
 
+const DepthOfFieldComponent = DepthOfField as any;
+const BloomComponent = Bloom as any;
+const NoiseComponent = Noise as any;
+const VignetteComponent = Vignette as any;
+const ChromaticAberrationComponent = ChromaticAberration as any;
+
 export default function FixedCanvas() {
   return (
     <div className="canvas-container">
@@ -29,7 +35,7 @@ export default function FixedCanvas() {
           <Scene />
           <EffectComposer disableNormalPass>
             {/* High-end Bokeh effect */}
-            <DepthOfField 
+            <DepthOfFieldComponent 
               focusDistance={0} 
               focalLength={0.02} 
               bokehScale={2} 
@@ -37,25 +43,24 @@ export default function FixedCanvas() {
             />
             
             {/* Subtle light bleed */}
-            <Bloom 
+            <BloomComponent 
               intensity={0.4} 
               luminanceThreshold={0.9} 
               luminanceSmoothing={0.1} 
             />
             
             {/* Photography-inspired lens distortion */}
-            {/* @ts-ignore */}
-            <ChromaticAberration 
+            <ChromaticAberrationComponent 
               offset={new Vector2(0.001, 0.001)} 
               radialModulation={true}
               modulationOffset={0.5}
             />
             
             {/* Analog Film Grain */}
-            <Noise opacity={0.03} />
+            <NoiseComponent opacity={0.03} />
             
             {/* Vignette for focus */}
-            <Vignette eskil={false} offset={0.1} darkness={1.1} />
+            <VignetteComponent eskil={false} offset={0.1} darkness={1.1} />
           </EffectComposer>
         </Suspense>
       </Canvas>
