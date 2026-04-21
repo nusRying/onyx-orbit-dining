@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import LuxuryDish from './LuxuryDish';
+import SpatialAudioController from './SpatialAudioController';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,6 +100,7 @@ export default function Scene() {
       
       <Environment preset="night" />
       <ambientLight intensity={0.15} />
+      <SpatialAudioController />
       
       <spotLight 
         ref={lightRef}
