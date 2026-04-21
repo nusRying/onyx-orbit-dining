@@ -32,10 +32,6 @@ export default function SpatialAudioController() {
     }
   }, [isAudioEnabled, masterVolume, listener]);
 
-  const handleAudioError = (e: any) => {
-    console.warn("Celestial Audio delayed or blocked:", e);
-  };
-
   return (
     <group>
       {/* Global Ambient Layer */}
@@ -44,7 +40,6 @@ export default function SpatialAudioController() {
         distance={100}
         loop
         autoplay={isAudioEnabled}
-        onError={handleAudioError}
       />
 
       {/* Localized Celestial Hum */}
@@ -55,7 +50,6 @@ export default function SpatialAudioController() {
           distance={5}
           loop
           autoplay={isAudioEnabled}
-          onError={handleAudioError}
         />
       </group>
     </group>
