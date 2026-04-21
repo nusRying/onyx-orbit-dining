@@ -77,11 +77,9 @@ const GlistenMaterialImpl = shaderMaterial(
 extend({ GlistenMaterialImpl });
 
 // Type definition for JSX
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      glistenMaterialImpl: ThreeElement<typeof GlistenMaterialImpl>;
-    }
+declare module '@react-three/fiber' {
+  interface ThreeElements {
+    glistenMaterialImpl: ThreeElement<typeof GlistenMaterialImpl>;
   }
 }
 
