@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   basePath: '/onyx-orbit-dining',
+  trailingSlash: true,
 };
 
 export default nextConfig;

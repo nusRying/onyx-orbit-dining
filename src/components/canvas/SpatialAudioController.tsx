@@ -14,8 +14,12 @@ export default function SpatialAudioController() {
   const [listener] = useState(() => new THREE.AudioListener());
   const positionalRef = useRef<THREE.PositionalAudio>(null);
 
-  // GitHub Pages base path
-  const assetPath = (path: string) => `/onyx-orbit-dining${path}`;
+  // GitHub Pages deployment version: v1.0.2 (Cache Invalidator)
+  const assetPath = (path: string) => {
+    const fullPath = `/onyx-orbit-dining${path}`;
+    console.log(`[Celestial] Resolving asset: ${fullPath}`);
+    return fullPath;
+  };
 
   useEffect(() => {
     camera.add(listener);
