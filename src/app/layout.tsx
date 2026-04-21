@@ -10,6 +10,11 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif"
 export const metadata: Metadata = {
   title: "L'Experience — Celestial Gastronomy",
   description: "An immersive sensory journey into haute cuisine. Where the ethereal meets the terrestrial — reserve your moment.",
+  icons: {
+    icon: "/onyx-orbit-dining/favicon.ico",
+    shortcut: "/onyx-orbit-dining/favicon.ico",
+    apple: "/onyx-orbit-dining/apple-touch-icon.png",
+  }
 };
 
 import Navbar from "@/components/layout/Navbar";

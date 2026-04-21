@@ -157,102 +157,186 @@ The guiding philosophy is **Celestial Gastronomy** — where the theatrical dram
 
 ---
 
-## 🌩️ Year 2: Living Intelligence — "The Synthesis" *(Next)*
+## 🌩️ Year 2: Living Intelligence — "The Synthesis"
 
-**Goal:** The site becomes self-aware. It knows what time of day it is, what the weather is outside your window, and can suggest pairings. The 3D environment synchronizes with the real world.
+**Goal:** The site becomes self-aware. It knows the weather at your window, the lunar cycle, the time of day, and your flavour history — and reshapes the 3D environment in real-time to match. This is no longer a website: it is a **reactive living entity**.
+
+### Stack Additions — Year 2
+
+| Technology | Purpose |
+|---|---|
+| Three.js WebGPU Renderer (`r170+`) | WGSL compute shaders replace GLSL for all materials |
+| Vercel AI SDK 4.0 (streaming) | Streaming AI responses wired directly to canvas uniforms |
+| `@ai-sdk/google` Gemini 2.0 Flash | On-device intent extraction for flavour pairing |
+| Web Animations API + View Transitions API | Native browser page transitions at 120fps |
+| CSS Houdini Paint API | Registered custom paint worklets for gold ink bleed effects |
+| OpenWeatherMap + Temporal API | Precise real-world time/weather data with timezone awareness |
 
 ---
 
-### Sprint 6: Real-Time World Synchronization
+### 🔲 Sprint 11: Real-Time World Synchronisation
+**Target: Q2 2026**
+
+- [ ] **OpenWeatherMap + Temporal API pipeline** — Weather condition codes update a `SceneState` Zustand slice every 10 minutes via a Vercel Edge Function (zero cold-start latency); scene transitions smoothly via GSAP `to()` uniform tweening
+- [ ] **Time-of-Day Lighting Engine** — 24-hour sun arc simulation: `ambientLight` colour temperature lerps from 2700K (dawn gold) → 5500K (noon white) → 1800K (candlelight dinner) using a custom WGSL `colorTemperature()` function
+- [ ] **Lunar Phase Integration** — `SunCalc` library feeds live phase angle into the `BookingPortal` ring speed and emissive intensity; full moon = peak orbital velocity
+- [ ] **Micro-climate geometry** — Rain triggers procedural droplet `InstancedMesh` (10,000 translucent particles) floating through the scene using a WebGPU compute-pass physics simulation
+- [ ] **Seasonal Menu Awareness** — CSS Houdini Paint Worklet blends seasonal colour palettes without triggering React re-renders; winter → monochrome obsidian; spring → emergent teal
+
+---
+
+### 🔲 Sprint 12: WebGPU Visual Supreme
 **Target: Q3 2026**
 
-- [ ] OpenWeatherMap API integration — Alter the 3D scene's ambient light and fog density to match the user's real-world weather (rain → moody teal mist; clear → sharp gold highlights)
-- [ ] Time-of-Day Lighting Engine — Scene transitions from "Lunch service" (warm daylight bloom) to "Dinner service" (deep obsidian, candlelight spotlights) based on the user's local time
-- [ ] Lunar Phase Integration — The orbital rings in the `BookingPortal` reflect the current phase of the moon
-- [ ] Seasonal Menu Awareness — Background geometry evolves by season (sparse winter icosahedrons → abundant spring leaves)
+- [ ] **Three.js WebGPU backend migration** — Replace WebGL2 renderer with `three/webgpu`; materials rewritten in WGSL for 3–5× shader throughput on modern discrete GPUs
+- [ ] **True Volumetric God-Rays** — Raymond volume march written as a WebGPU Compute Pass (not a screen-space post-process); 128-step ray cast from the spotlight through the dish's bounding volume
+- [ ] **Real-time Fluid Simulation** — SPH (Smoothed Particle Hydrodynamics) particle solver in a WebGPU Compute Shader; 50,000 particles draping across the plate surface, responding to mouse velocity with < 2ms GPU-side latency
+- [ ] **Screen-Space Global Illumination (SSGI)** — Implemented via a custom WebGPU render pass reading depth + normal G-buffer; indirect light bounces from the dish to the plate to the table surface
+- [ ] **Gaussian Splatting for dish hero** — Replace `torusKnotGeometry` with a photogrammetry-trained 3D Gaussian Splat (`.splat` file) of an actual chef's dish, rendered at 60fps via the `@monogrid/gaussian-splats-3d` renderer integrated into the R3F canvas
+- [ ] **Adaptive Temporal Anti-Aliasing (TAA)** — GPU-side temporal accumulation buffer produces film-grain-free visuals without MSAA performance penalty; 4× effective supersampling at native resolution
 
 ---
 
-### Sprint 7: AI Sommelier & Flavor Pairing Engine
+### 🔲 Sprint 13: AI Sommelier & Multimodal Pairing Engine
+**Target: Q3 2026**
+
+- [ ] **Gemini 2.0 Flash streaming panel** — `useChat` from Vercel AI SDK; chef suggestions stream token-by-token into a glassmorphism overlay embedded in the 3D scene via `<Html transform />`; response tokens drive a waveform animation on the `AudioToggle` bars in sync
+- [ ] **Multimodal "Capture Your Palate"** — User photographs their current meal (or pantry); image sent to `gemini-2.0-flash` Vision API; AI returns a JSON flavour profile (`{ acidity: 0.7, umami: 0.9 }`) that restructures the 3D menu carousel into a personalised tasting order
+- [ ] **On-device inference with Web Neural Network API (WebNN)** — A distilled ONNX flavour-embedding model runs entirely in the browser using WebNN hardware acceleration; zero server round-trips for initial recommendation, < 50ms inference latency on Apple Silicon
+- [ ] **Conversational booking** — Replace the static `BookingGlassForm` with a multi-turn dialogue driven by `ai/rsc` React Server Components; server-side tool calls handle OpenTable slot lookup while streaming a natural-language confirmation message into the 3D portal
+- [ ] **Personalised narrative** — Encrypted `localStorage` profile stores interaction fingerprint (sections viewed, dishes hovered, audio on/off); `NarrativeOverlay` text adapts tone — returning connoisseur vs. first-time explorer vs. special occasion
+
+---
+
+### 🔲 Sprint 14: View Transitions & Native Animation Layer
 **Target: Q4 2026**
 
-- [ ] GPT-4o powered "Flavor Pairing Assistant" floating panel that suggests wine pairings based on selected menu items
-- [ ] Conversational booking flow — Replace the static form with a multi-turn AI dialogue
-- [ ] Vision API integration — A "Capture your Palate" mode where users photograph their pantry and the AI maps their flavor profile to a recommended 3-course menu
-- [ ] Personalized narrative — The `NarrativeOverlay` text adapts in real-time based on user interaction history (returning visitor vs. first-time curious explorer)
+- [ ] **View Transitions API** — Replace GSAP page transitions with native `document.startViewTransition()` coordinated with the R3F canvas; morphing cross-fade between routes at GPU compositor level (120fps on ProMotion displays)
+- [ ] **CSS Scroll-Driven Animations (native)** — Replace JS-heavy `ScrollTrigger` logic for typography reveals with `animation-timeline: scroll()` and `animation-range` — zero JavaScript overhead for 80% of scroll animations
+- [ ] **CSS Houdini Paint Worklets** — Registered `goldInkBleed` paint worklet renders animated ink-bleed border effects on section cards using `CSS.paintWorklet.addModule()`; renders off-main-thread via the Worklet API
+- [ ] **`@starting-style` entry animations** — All overlays (MenuOverlay, BookingGlassForm) use native CSS `@starting-style` for entry transitions — no JavaScript required, hardware-accelerated from first paint
+- [ ] **WebCodecs video pipeline** — Chef's video biography decoded via `VideoDecoder` Web API at frame-level precision; individual video frames are extracted and mapped as live `VideoTexture` uniforms inside the 3D story vignettes at exact scroll positions
 
 ---
 
-### Sprint 8: WebGPU Visual Upgrade
+### 🔲 Sprint 15: The Reservation Intelligence Layer
+**Target: Q4 2026**
+
+- [ ] **Live 3D seating visualisation** — OpenTable Availability API populates a top-down 3D dining room floor plan (Three.js `InstancedMesh` tables) that shows occupied vs. available tables in real-time; hovered table reveals a contextual info card
+- [ ] **Smart urgency engine** — Vercel Edge Config stores real-time demand signals; when > 80% capacity is booked for a date, the `BookingPortal` rings accelerate and pulse in a warning amber; copy adapts ("Only 2 moments remain for Saturday")
+- [ ] **Guest memory via Vercel KV** — Returning visitors authenticated via Passkey (WebAuthn API, passwordless); their previous booking, dietary preferences, and favourite dish appear pre-loaded in the 3D portal with a personalised greeting message
+- [ ] **Post-dining memory NFT prompt** — 24h after a reservation date, an email triggers a return visit; the site generates a unique generative `.glb` artefact of "their moment" based on booking timestamp + weather on the night
+
+---
+
+## 🌌 Year 3: Immersive Convergence — "The Moment"
+
+**Goal:** The site transcends the screen entirely. It enters physical space via spatial computing, responds to the real-world dining environment, and generates artefacts that outlast the visit. Design publications cite it. Competing restaurants try to replicate it.
+
+### Stack Additions — Year 3
+
+| Technology | Purpose |
+|---|---|
+| `@react-three/xr` v6 + WebXR Device API | Apple Vision Pro visionOS + Meta Quest 3 immersive-ar/vr |
+| WebRTC DataChannel + PartyKit | Real-time multiplayer shared 3D dining sessions |
+| Web Bluetooth API | Physical table beacons trigger contextual AR overlays |
+| WASM + Rust (compiled via `wasm-pack`) | High-performance procedural generation for artefacts |
+| Neuronal Audio Synthesis (Magenta.js) | Generative ambient music that evolves with the session |
+
+---
+
+### 🔲 Sprint 16: WebXR Spatial Dining — Apple Vision Pro & Quest 3
 **Target: Q1 2027**
 
-- [ ] Migrate materials to WebGPU compute shaders via Three.js WebGPU backend
-- [ ] True volumetric god-rays from the spotlight above the dish (not a post-process — rendered in-volume)
-- [ ] Real-time fluid simulation on the plate surface — the "food" responds to mouse velocity as if it is a living liquid
-- [ ] Screen-Space Global Illumination (SSGI) — light from the dish bounces onto the plate, the plate bounces onto the table
+- [ ] **visionOS Safari WebXR** — Full `immersive-ar` session on Apple Vision Pro; the 3D dish hovers life-size above the user's physical dining table, textured with the live Gaussian Splat material
+- [ ] **Passthrough spatial menu** — In AR mode on Quest 3, all 6 menu items float at arm's reach in the physical room; users "reach" to select, triggering a haptic confirmation via the `GamepadHapticActuator` API
+- [ ] **Shared spatial experience** — Two users can enter the same "dining room" simultaneously via WebRTC DataChannel + PartyKit; physics and garnish positions are synchronised at < 50ms latency; both see the same dish from their own spatial perspective
+- [ ] **gaze-driven micro-interactions** — WebXR `XRHitTestSource` + eye-tracking input API: when a user's gaze dwells on any ingredient node for > 1.5 seconds, a provenance card materialises in space with the farm name, GPS origin, and harvest date
 
 ---
 
-### Sprint 9: The Reservation Intelligence Layer
+### 🔲 Sprint 17: Physical-Digital Integration
 **Target: Q2 2027**
 
-- [ ] Live table availability from OpenTable API with real-time 3D seating visualization
-- [ ] Dynamic pricing display — peak hours animate the "Secure a Moment" button with a subtle urgency pulse
-- [ ] Guest preference memory — returning visitors see their last booking pre-filled in the 3D portal, with a personalized greeting
+- [ ] **Web Bluetooth table beacons** — Each physical table has a BLE beacon; a QR code initiates `navigator.bluetooth.requestDevice()` pairing; the device then receives `notify` events as dishes arrive, triggering synchronised audio + visual cues in the WebXR layer
+- [ ] **Physical menu → digital twin** — NFC tag embedded in the printed menu card; tapping with a phone opens an AR overlay that shows the 3D geometry of the dish and begins the booking flow without any typing
+- [ ] **Live kitchen feed compositing** — A kitchen RTSP camera feed is decoded via `VideoDecoder` WebCodecs and mapped as a `VideoTexture` inside the 3D dish surface; diners at the table can see their dish being plated in real-time through the portal
+- [ ] **Ambient biometric calibration** — With user consent, the front-facing camera uses `FaceDetector` API face-landmark tracking to estimate emotional engagement (smile width, brow position); the scene's ambient warmth and music tempo subtly respond
 
 ---
 
-## 🌌 Year 3+: Immersive Convergence — "The Moment"
-
-**Goal:** The site transcends its medium. It becomes a place people visit for the experience alone, not to make a booking. It is reviewed in design publications and taught in web design courses.
-
----
-
-### Sprint 10: WebXR Spatial Dining
+### 🔲 Sprint 18: Generative Artefact Engine
 **Target: Q3 2027**
 
-- [ ] Full WebXR support via `@react-three/xr`
-- [ ] In VR headset (Vision Pro, Quest 3): Enter the 3D dining room and walk around the dish
-- [ ] Spatial menu: Each dish floats in the real world (via AR mode) on your dining table before you order
-- [ ] Haptic API integration — a subtle vibration feedback (on mobile) when the dish "glistens" at maximum shimmer frequency
+- [ ] **Wasm-powered procedural generation** — A Rust `wasm-pack` module generates unique 3D artefact geometry from a booking's domain signature (timestamp, guest count, weather hash, dish selected); each artefact is deterministically unique and non-reproducible
+- [ ] **Downloadable `.glb` memory artefacts** — Post-dining email links to a personalised URL that renders the artefact in the 3D canvas with the booking date engraved as floating text; downloadable as a `.glb` for any spatial viewer or 3D printer
+- [ ] **Artefact gallery as restaurant history** — `/artefacts` page: an infinite 3D starfield where every booking artefact orbits a central "restaurant star" — the site becomes a living, crowdsourced monument to every meal ever served
+- [ ] **Generative Ambient Music** — Magenta.js `MusicRNN` model generates a unique 8-bar piano motif derived from the booking timestamp signature; plays as the artefact reveals; guests can download the MIDI file as part of their memory package
 
 ---
 
-### Sprint 11: Digital Artifact NFT Receipts
+### 🔲 Sprint 19: The Living Digital Twin
 **Target: Q4 2027**
 
-- [ ] Every confirmed reservation mints a unique generative 3D artifact — a "Crystallized Moment" where the dish's geometry is frozen at the exact timestamp of the booking
-- [ ] Artifacts are downloadable as `.glb` files and viewable in any WebGL viewer
-- [ ] A gallery page renders all minted artifacts — the restaurant's history told in procedural geometry
+- [ ] **Kitchen IoT integration** — Temperature sensors, prep-station timers, and oven state machines feed a Vercel serverless WebSocket endpoint; the 3D dish geometry responds in real-time: heat distortion shader activates when oven temp exceeds 200°C
+- [ ] **Chef-presence detection** — A single Raspberry Pi RFID reader at the kitchen entrance triggers an event via Vercel Realtime; the dish "wakes up" with a slow gold bloom pulse when Chef is actively working — visible to diners via the AR layer
+- [ ] **Dish provenance supply-chain** — Integration with a blockchain-anchored supply chain API; each ingredient node in the 3D dish has a scannable QR that links to its farm, harvest date, transit route, and carbon footprint — visible in AR as floating callouts
 
 ---
 
-### Sprint 12: The Living Digital Twin
+## 🌠 Year 4+: Transcendence — "Beyond the Screen"
+
+**Goal:** L'Experience is no longer evaluated as a website. It is a spatial computing platform, a cultural artefact, and a case study in what happens when hospitality and technology achieve complete synthesis.
+
+---
+
+### 🔲 Sprint 20: Autonomous Scene Intelligence
+**Target: 2028**
+
+- [ ] **On-device LLM scene director** — A quantised Gemma 2B model running via WebAssembly in a dedicated Web Worker acts as an autonomous "scene director"; it observes the user's session behavioural signals and issues real-time instructions to the GSAP timeline (slow the narrative, dim the lights, introduce a secondary instrument layer)
+- [ ] **Predictive pre-booking** — A federated ML model (trained on anonymised booking patterns via the Privacy Sandbox Protected Audience API) predicts when a loyal guest is likely to want to dine next and proactively prepares the 3D portal for their return visit
+- [ ] **Ambient intelligence mesh** — Restaurant's smart-home layer (lighting, music, scent diffusers) is addressable via the site's backend; when a booking is confirmed, the physical restaurant begins configuring the table's environment 30 minutes before arrival
+
+---
+
+### 🔲 Sprint 21: Full Neural Visual Rendering
 **Target: 2028+**
 
-- [ ] Kitchen IoT sensors feed live data to the 3D scene — when Chef arrives, the dish "wakes up" and begins to warm (shader heat distortion activates)
-- [ ] Real-time plating camera feed composited inside the 3D dish geometry using a Three.js `VideoTexture`
-- [ ] Guest-side: A QR code at the table opens a WebXR overlay of the dish's story (provenance of each ingredient, chef's intention, flavor journey) anchored to the physical plate
+- [ ] **NeRF → 3D Gaussian Splat pipeline** — A fully automatic photogrammetry capture rig in the kitchen photographs each new seasonal dish from 150 angles; a background process produces a trained Gaussian Splat within 2 hours of the photo session, auto-deploying to the CDN
+- [ ] **Real-time neural denoising** — WebNN-accelerated OIDN (Intel Open Image Denoise) runs in a post-process pass, eliminating path-tracing noise at < 4ms on Apple M-series and AMD RDNA3+; achieves photorealistic render quality at 60fps
+- [ ] **WebGPU Ray Tracing** — As `RTX`-class WebGPU extensions standardise, migrate the lighting engine to hardware-accelerated ray tracing; caustics from wine glasses, accurate subsurface scattering through food textures, and true mirror reflections on the plate
 
 ---
 
 ## Design System Reference
 
 ```css
-/* Celestial Gastronomy Design Tokens */
+/* Celestial Gastronomy Design Tokens — v2.0 */
 :root {
-  --obsidian:      #050505;   /* Primary background — charged void */
-  --accent-gold:   #D4AF37;   /* Primary accent — restraint, precision */
-  --ethereal-teal: #0F2C2E;   /* Secondary accent — depth, mystery */
-  --void-smoke:    #111111;   /* Secondary background — depth layer */
-  --lunar-silver:  #C0C0C0;   /* Text primary — crisp, intentional */
-  --ghost-white:   rgba(255,255,255,0.07); /* Glassmorphism substrate */
-  
+  /* Colours */
+  --obsidian:       #050505;                   /* Primary background — charged void */
+  --accent-gold:    #D4AF37;                   /* Primary accent — restraint, precision */
+  --ethereal-teal:  #0F2C2E;                   /* Secondary accent — depth, mystery */
+  --void-smoke:     #111111;                   /* Secondary background — depth layer */
+  --lunar-silver:   #C0C0C0;                   /* Text primary — crisp, intentional */
+  --ghost-white:    rgba(255,255,255,0.07);    /* Glassmorphism substrate */
+  --amber-urgency:  #E8A020;                   /* Demand signal — Year 2 smart urgency */
+
+  /* Typography */
   --font-serif:    'Cormorant Garamond', Georgia, serif;
   --font-sans:     'Inter', 'Helvetica Neue', sans-serif;
-  
-  --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1); /* Expo-out — majestic momentum */
+  --font-mono:     'JetBrains Mono', 'Fira Code', monospace; /* For data readouts */
+
+  /* Motion */
+  --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1);    /* Expo-out — majestic momentum */
   --ease-magnetic:  cubic-bezier(0.34, 1.56, 0.64, 1); /* Back-out — physical spring */
+  --ease-fluid:     cubic-bezier(0.4, 0, 0.2, 1);       /* Material Design 3 standard */
+
+  /* Timing */
+  --duration-instant:  100ms;
+  --duration-swift:    300ms;
+  --duration-measured: 700ms;
+  --duration-cinematic: 1400ms;
 }
 ```
 
@@ -260,46 +344,68 @@ The guiding philosophy is **Celestial Gastronomy** — where the theatrical dram
 
 ## Success Metrics
 
-| Year | Target Metric |
+| Year | Target Metrics |
 |---|---|
-| **Year 1** | Lighthouse Performance ≥ 90, Core Web Vitals all green, Awwwards "Site of the Day" submission |
-| **Year 2** | Featured in Smashing Magazine or CSS-Tricks, AI features reduce booking abandonment by 40% |
-| **Year 3** | Awwwards "Site of the Year" nominee, cited in 2+ design publications, 10k organic monthly visits from design community |
+| **Year 1 (2026)** | Lighthouse ≥ 95, Core Web Vitals all green, Awwwards "Site of the Day", FWA award submission |
+| **Year 2 (2026–27)** | AI features cut booking abandonment by 40%, Smashing Magazine / CSS-Tricks feature, < 1.5s LCP on 4G mobile |
+| **Year 3 (2027)** | Awwwards "Site of the Year" nominee, cited in 2+ spatial computing publications, 50k monthly visits from design community |
+| **Year 4 (2028+)** | Taught in 3+ university web design courses, referenced in WWDC / Google I/O developer keynotes, licensing interest from other luxury hospitality brands |
 
 ---
 
-## Architecture Overview
+## Evolving Architecture Overview
 
 ```
 src/
-├── app/                    # Next.js App Router
-│   ├── page.tsx            # Celestial Gastronomy narrative layout
-│   ├── layout.tsx          # Root layout with canvas + overlays
-│   └── globals.css         # Design token system
+├── app/                           # Next.js App Router (RSC + streaming)
+│   ├── page.tsx                   # Celestial Gastronomy narrative layout
+│   ├── layout.tsx                 # Root layout (suppressHydrationWarning)
+│   ├── menu/page.tsx              # Sprint 6: Fluid 3D menu carousel
+│   ├── gallery/page.tsx           # Sprint 7: Cinematic depth gallery
+│   ├── story/page.tsx             # Sprint 8: Biographical film scroll
+│   ├── artefacts/page.tsx         # Sprint 18: Generative memory archive
+│   └── globals.css                # Design token system v2.0
 ├── components/
 │   ├── canvas/
-│   │   ├── Scene.tsx               # Master 3D orchestrator + camera
-│   │   ├── LuxuryDish.tsx          # The culinary 3D artifact
-│   │   ├── GlistenMaterial.tsx     # Custom GLSL Fresnel shader
-│   │   ├── SpatialAudioController.tsx  # 3D audio engine
-│   │   ├── BookingPortal.tsx       # Armillary sphere reservation UI
-│   │   └── BookingGlassForm.tsx    # Glassmorphism HTML overlay in 3D
+│   │   ├── Scene.tsx              # Master 3D orchestrator + camera
+│   │   ├── LuxuryDish.tsx         # Culinary 3D artifact (garnish-reactive)
+│   │   ├── GlistenMaterial.tsx    # WGSL Fresnel shader (Year 2: WebGPU)
+│   │   ├── SpatialAudioController.tsx  # 3D + Magenta.js generative audio
+│   │   ├── BookingPortal.tsx      # Armillary sphere with lunar sync
+│   │   ├── BookingGlassForm.tsx   # Multi-turn AI dialogue form
+│   │   ├── GaussianSplatDish.tsx  # Sprint 12: Photorealistic splat hero
+│   │   ├── FluidSimulation.tsx    # Sprint 12: WebGPU compute SPH solver
+│   │   └── WeatherParticles.tsx   # Sprint 11: Rain/snow InstancedMesh
 │   ├── layout/
-│   │   ├── Navbar.tsx              # Dynamic visibility nav
-│   │   ├── MenuOverlay.tsx         # Staggered full-screen menu
-│   │   ├── Preloader.tsx           # Cinematic brand reveal
-│   │   ├── NarrativeOverlay.tsx    # Scroll-triggered story panels
-│   │   ├── FixedCanvas.tsx         # Fullscreen R3F canvas host
-│   │   └── SmoothScroll.tsx        # Lenis smooth scroll wrapper
+│   │   ├── Navbar.tsx             # Scroll-direction dynamic visibility
+│   │   ├── MenuOverlay.tsx        # 8-column staggered grid reveal
+│   │   ├── Preloader.tsx          # Letter-stagger cinematic reveal
+│   │   ├── NarrativeOverlay.tsx   # AI-personalised scroll story panels
+│   │   ├── FixedCanvas.tsx        # Fullscreen R3F canvas (WebGPU backend)
+│   │   └── SmoothScroll.tsx       # Lenis + native scroll-driven animations
+│   ├── xr/
+│   │   ├── SpatialMenu.tsx        # Sprint 16: WebXR passthrough menu
+│   │   ├── SharedDiningRoom.tsx   # Sprint 16: PartyKit multiplayer session
+│   │   └── ProvenanceCallout.tsx  # Sprint 19: AR ingredient labels
 │   └── shared/
-│       ├── AudioToggle.tsx         # Sound control with spectrum bars
-│       ├── CustomCursor.tsx        # Clean-dot + atmospheric ring cursor
-│       ├── Magnetic.tsx            # Magnetic hover attraction
-│       └── TextReveal.tsx          # GSAP scroll-triggered letter reveal
-└── store/
-    └── useStore.ts                 # Global Zustand state machine
+│       ├── AudioToggle.tsx        # Spectrum bars + Magenta waveform sync
+│       ├── CustomCursor.tsx       # Clean-dot + atmospheric ring
+│       ├── Magnetic.tsx           # Magnetic hover physics
+│       └── TextReveal.tsx         # Scroll-driven CSS + GSAP fallback
+├── workers/
+│   ├── sceneDirector.worker.ts    # Sprint 20: Gemma 2B LLM scene director
+│   └── audioDecoder.worker.ts     # WebCodecs audio decode off-main-thread
+├── wasm/
+│   └── artefact_gen/              # Sprint 18: Rust WASM artefact generator
+├── store/
+│   └── useStore.ts                # Global Zustand state machine (audio, booking, scene, weather)
+└── lib/
+    ├── ai.ts                      # Vercel AI SDK + Gemini 2.0 Flash client
+    ├── weather.ts                 # OpenWeatherMap + Temporal API pipeline
+    ├── webnn.ts                   # WebNN ONNX flavour model loader
+    └── bluetooth.ts               # Web Bluetooth beacon pairing utility
 ```
 
 ---
 
-*Last Updated: April 2026 — Phase 1 "Celestial Gastronomy" complete.*
+*Last Updated: April 2026 — Phase 1 "The Awakening" complete. Phase 2 "The Synthesis" begins Q2 2026.*

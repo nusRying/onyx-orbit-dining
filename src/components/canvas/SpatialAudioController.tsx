@@ -12,8 +12,10 @@ export default function SpatialAudioController() {
   const masterVolume = useStore((state) => state.masterVolume);
   
   const [listener] = useState(() => new THREE.AudioListener());
-  const ambientRef = useRef<THREE.Audio>(null);
   const positionalRef = useRef<THREE.PositionalAudio>(null);
+
+  // GitHub Pages base path
+  const assetPath = (path: string) => `/onyx-orbit-dining${path}`;
 
   useEffect(() => {
     camera.add(listener);
@@ -25,30 +27,35 @@ export default function SpatialAudioController() {
   useEffect(() => {
     if (isAudioEnabled) {
       listener.setMasterVolume(masterVolume);
-      // Play sounds if they are loaded
     } else {
       listener.setMasterVolume(0);
     }
   }, [isAudioEnabled, masterVolume, listener]);
 
+  const handleAudioError = (e: any) => {
+    console.warn("Celestial Audio delayed or blocked:", e);
+  };
+
   return (
     <group>
-      {/* Global Ambient Layer (Non-Positional but controlled by listener) */}
+      {/* Global Ambient Layer */}
       <PositionalAudio
-        url="https://assets.mixkit.co/music/preview/mixkit-ethereal-fairy-bells-1053.mp3"
-        distance={100} // High distance makes it feel global
+        url={assetPath("/audio/ambient.mp3")}
+        distance={100}
         loop
         autoplay={isAudioEnabled}
+        onError={handleAudioError}
       />
 
-      {/* Localized Celestial Hum (Positional - attached to the dish) */}
+      {/* Localized Celestial Hum */}
       <group position={[0, 0, 0]}>
         <PositionalAudio
           ref={positionalRef}
-          url="https://assets.mixkit.co/music/preview/mixkit-dreamy-slow-piano-547.mp3"
+          url={assetPath("/audio/celestial.mp3")}
           distance={5}
           loop
           autoplay={isAudioEnabled}
+          onError={handleAudioError}
         />
       </group>
     </group>
