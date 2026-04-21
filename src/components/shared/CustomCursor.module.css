@@ -1,0 +1,31 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  mix-blend-mode: difference;
+}
+
+.follower {
+  position: fixed;
+  top: -12px;
+  left: -12px;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999;
+  transition: transform 0.1s ease-out;
+}
+
+@media (max-width: 768px) {
+  .cursor, .follower {
+    display: none;
+  }
+}

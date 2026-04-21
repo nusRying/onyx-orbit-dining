@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 10vw, 8rem);
+  margin-bottom: 1rem;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.hero {
+  text-align: center;
+}
+
+.story, .ingredients {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+}
+
+.content {
+  max-width: 600px;
+  padding: 4rem;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-left: 1px solid var(--accent);
+}
+
+.content h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: var(--accent);
+}
+
+.footer {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer p {
+  font-size: 0.9rem;
+  opacity: 0.5;
+}

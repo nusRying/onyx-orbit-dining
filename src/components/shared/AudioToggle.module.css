@@ -1,0 +1,52 @@
+.container {
+  position: fixed;
+  bottom: 3rem;
+  left: 3rem;
+  z-index: 100;
+  mix-blend-mode: difference;
+}
+
+.button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 12px;
+}
+
+.bar {
+  width: 2px;
+  height: 4px;
+  background: var(--accent);
+}
+
+.bar.animating {
+  animation: soundBar 0.8s infinite ease-in-out alternate;
+}
+
+@keyframes soundBar {
+  from { height: 4px; }
+  to { height: 12px; }
+}
+
+@media (max-width: 768px) {
+  .container {
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+}
