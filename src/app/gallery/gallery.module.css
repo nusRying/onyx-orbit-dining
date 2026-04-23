@@ -1,0 +1,78 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.ui {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8rem 4rem 4rem;
+  pointer-events: none;
+}
+
+.ui > * {
+  pointer-events: all;
+}
+
+.header {
+  max-width: 600px;
+}
+
+.category {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  text-transform: uppercase;
+  line-height: 1;
+  color: #fff;
+}
+
+.instructions {
+  align-self: flex-end;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 20%, var(--background) 90%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .ui {
+    padding: 6rem 2rem 2rem;
+  }
+  .instructions {
+    align-self: flex-start;
+  }
+}

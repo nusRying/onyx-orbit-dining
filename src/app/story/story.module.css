@@ -1,0 +1,111 @@
+.container {
+  width: 100%;
+  background: var(--background);
+  color: #fff;
+  position: relative;
+}
+
+/* Timeline Rail */
+.rail {
+  position: fixed;
+  top: 50%;
+  left: 4rem;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  z-index: 100;
+}
+
+.railLine {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nodeCircle {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid transparent;
+  transition: all 0.4s ease;
+}
+
+.node:hover .nodeCircle {
+  background: var(--accent);
+  box-shadow: 0 0 15px var(--accent);
+}
+
+.nodeDate {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  opacity: 0.4;
+  transition: opacity 0.4s ease;
+}
+
+.node:hover .nodeDate {
+  opacity: 1;
+}
+
+/* Chapters */
+.chapters {
+  position: relative;
+}
+
+.chapterSection {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-left: 20%;
+  padding-right: 10%;
+}
+
+.content {
+  max-width: 600px;
+}
+
+.date {
+  display: block;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 10vw, 6rem);
+  text-transform: uppercase;
+  line-height: 0.9;
+  margin-bottom: 2rem;
+}
+
+.description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  opacity: 0.6;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .rail {
+    display: none;
+  }
+  .chapterSection {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}

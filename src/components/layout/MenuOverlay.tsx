@@ -4,8 +4,8 @@ import { useEffect, useRef } from 'react';
 import { useStore } from '@/store/useStore';
 import gsap from 'gsap';
 import styles from './MenuOverlay.module.css';
-
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const menuLinks = [
   { label: 'Celestial Journey', href: '/' },
@@ -15,11 +15,28 @@ const menuLinks = [
 ];
 
 export default function MenuOverlay() {
+  const router = useRouter();
   const isMenuOpen = useStore((state) => state.isMenuOpen);
   const toggleMenu = useStore((state) => state.toggleMenu);
+  const setIsLiquifying = useStore((state) => state.setIsLiquifying);
   const containerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
+
+  const handleLinkClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    setIsLiquifying(true);
+    toggleMenu(false);
+    
+    // Play transition, then navigate
+    setTimeout(() => {
+      router.push(href);
+      // Wait for navigation to finish before stopping the liquify effect
+      setTimeout(() => {
+        setIsLiquifying(false);
+      }, 500);
+    }, 1000);
+  };
 
   useEffect(() => {
     if (!containerRef.current || !gridRef.current || !linksRef.current) return;
@@ -80,21 +97,17 @@ export default function MenuOverlay() {
           <div 
             key={i} 
             className={styles.linkItem} 
-            onClick={() => {
+            onClick={(e) => {
               if (link.label === 'Secure a Moment') {
                 useStore.getState().setIsBookingOpen(true);
                 toggleMenu(false);
               } else {
-                toggleMenu(false);
+                handleLinkClick(e, link.href);
               }
             }}
           >
-            <div className="link-content" style={{ opacity: 0, transform: 'translateY(20px)' }}>
-              {link.label === 'Secure a Moment' ? (
-                <span style={{ cursor: 'pointer' }}>{link.label}</span>
-              ) : (
-                <Link href={link.href}>{link.label}</Link>
-              )}
+            <div className="link-content" style={{ opacity: 0, transform: 'translateY(20px)', cursor: 'pointer' }}>
+              {link.label}
             </div>
           </div>
         ))}

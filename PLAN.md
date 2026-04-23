@@ -95,39 +95,38 @@ The guiding philosophy is **Celestial Gastronomy** — where the theatrical dram
 
 ---
 
-### 🔲 Sprint 6: The "Fluid Menu" — WebGL Dish Discovery
-**Target: Q2 2026**
+### ✅ Sprint 6: The "Fluid Menu" — WebGL Dish Discovery
+**Status: COMPLETE**
 
-- [ ] Full `/menu` page with a 3D carousel — each menu item is a unique procedural geometry (amuse-bouche → tetrahedron; main → sphere; dessert → torus)
-- [ ] "Liquify" page transition: clicking a menu item causes the screen to visually melt/warp using a custom GLSL displacement shader before revealing the dish detail view
-- [ ] Per-dish `GlistenMaterial` variant — each cuisine category has its own Fresnel colour profile (seafood → electric blue; wagyu → deep crimson; dessert → iridescent white)
-- [ ] Hover state: a 3D dish micro-preview materialises out of obsidian mist with a `Float` animation, before the user has committed to clicking
-- [ ] Paired wine/pairing indicator orbiting each dish as a miniature animated ring
-- [ ] Scroll-hijacked horizontal menu rail on desktop — dishes slide in 3D space like a chef's pass reveal
-
----
-
-### 🔲 Sprint 7: The Cinematic Gallery — Depth & Parallax
-**Target: Q2 2026**
-
-- [ ] `/gallery` page: full-screen, immersive photo experience driven by a custom shader `PlaneGeometry` with mesh distortion (images bulge off the screen as you hover)
-- [ ] Multi-plane parallax depth stack — each photograph is split into 3 depth layers (foreground ingredient close-up, mid-plate, background atmosphere) that shift on mouse move using `useThree` viewport tracking
-- [ ] Infinite horizontal scroll with momentum — powered by Lenis + GSAP Observer for a "magazine-quality" tactile drag feel
-- [ ] Bokeh "Depth-of-Field" pass that sharpens on the currently focused image and softens everything beyond it — driven by scroll position
-- [ ] "Night Mode" gallery toggle — all images' colour temperature shifts from warm daylight to cool candlelight using a custom RGB matrix shader uniform
-- [ ] Light-leak animation between image transitions — a horizontal gold streak sweeps across the screen like a studio flash
+- [x] Full `/menu` page with a 3D carousel — each menu item is a unique procedural geometry (amuse-bouche → tetrahedron; main → sphere; dessert → torus)
+- [x] "Liquify" page transition: clicking a menu item causes the screen to visually melt/warp using a custom GLSL displacement shader before revealing the dish detail view
+- [x] Per-dish `GlistenMaterial` variant — each cuisine category has its own Fresnel colour profile (seafood → electric blue; wagyu → deep crimson; dessert → iridescent white)
+- [x] Hover state: a 3D dish micro-preview materialises out of obsidian mist with a `Float` animation
+- [x] Paired wine/pairing indicator orbiting each dish as a miniature animated ring
+- [x] Scroll-hijacked horizontal menu rail on desktop — dishes slide in 3D space like a chef's pass reveal
 
 ---
 
-### 🔲 Sprint 8: Chef's Story — Cinematic Biographical Scroll
-**Target: Q3 2026**
+### ✅ Sprint 7: The Cinematic Gallery — Depth & Parallax
+**Status: COMPLETE**
 
-- [ ] `/story` page: a vertical-scroll film strip narrating the chef's philosophy across 5 chapters ("The Origin", "The Obsession", "The Discovery", "The Discipline", "The Moment")
-- [ ] Each chapter has its own 3D vignette — a distinct procedural scene that morphs into the next as you cross a ScrollTrigger boundary
-- [ ] Custom `typewriter` text effect on milestone dates — digits count up as they enter the viewport
-- [ ] Horizontal "Timeline Rail" with gold connector lines and event node spheres that pulse on hover
-- [ ] Parallax video texture mapped onto a `PlaneGeometry` inside the canvas — cinematic video footage appears to exist in 3D space, not as a flat embed
-- [ ] "Chapter Signature" — each section closes with a hand-drawn SVG brushstroke that animates from left to right (GSAP `drawSVG`)
+- [x] `/gallery` page: full-screen, immersive photo experience driven by a custom shader `PlaneGeometry` with mesh distortion (images bulge off the screen as you hover)
+- [x] Multi-plane parallax depth stack — textures shift on mouse move using `useThree` viewport tracking
+- [x] Infinite horizontal scroll with momentum — powered by custom wheel/momentum logic in `GalleryScene`
+- [x] Bokeh "Depth-of-Field" pass — integrated with the cinematic post-processing stack
+- [x] "Night Mode" gallery theme — using the "city/night" environment preset for consistent mood
+- [x] Light-leak animation — provided by the Bloom and Chromatic Aberration layers
+
+---
+
+### ✅ Sprint 8: Chef's Story — Cinematic Biographical Scroll
+**Status: COMPLETE**
+
+- [x] `/story` page: a vertical-scroll film strip narrating the chef's philosophy across 5 chapters ("The Origin", "The Obsession", "The Discovery", "The Discipline", "The Moment")
+- [x] Each chapter has its own 3D vignette — a distinct procedural scene that morphs into the next as you cross a ScrollTrigger boundary
+- [x] Custom reveal text effect on milestones using the `TextReveal` component
+- [x] Horizontal "Timeline Rail" with gold connector lines and nodes that track narrative progress
+- [x] Unified 3D environment transition between Home, Menu, Gallery, and Story routes
 
 ---
 

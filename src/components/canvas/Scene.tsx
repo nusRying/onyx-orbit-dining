@@ -1,29 +1,53 @@
 'use client';
 
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect, Suspense } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, Environment, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { usePathname } from 'next/navigation';
 import LuxuryDish from './LuxuryDish';
 import SpatialAudioController from './SpatialAudioController';
 import BookingPortal from './BookingPortal';
 import BookingGlassForm from './BookingGlassForm';
+import MenuCarousel from './MenuCarousel';
+import GalleryScene from './GalleryScene';
+import StoryScene from './StoryScene';
+import LiquifyOverlay from './LiquifyOverlay';
 import { useStore } from '@/store/useStore';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Scene() {
+  const pathname = usePathname();
+  const isMenuPage = pathname === '/menu';
+  const isGalleryPage = pathname === '/gallery';
+  const isStoryPage = pathname === '/story';
+  
   const groupRef = useRef<THREE.Group>(null);
   const dishRef = useRef<THREE.Group>(null);
   const lightRef = useRef<THREE.SpotLight>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
   
   const { viewport, size } = useThree();
   const isMobile = size.width < 768;
+  const isBookingOpen = useStore((state) => state.isBookingOpen);
 
   useLayoutEffect(() => {
-    if (!groupRef.current || !dishRef.current) return;
+    // Scroll narrative logic only for Home page
+    if (!groupRef.current || !dishRef.current || isMenuPage || isGalleryPage || isStoryPage) {
+      if (isMenuPage && cameraRef.current) {
+        gsap.to(cameraRef.current.position, { x: 0, y: 0, z: 12, duration: 1 });
+      }
+      if (isGalleryPage && cameraRef.current) {
+        gsap.to(cameraRef.current.position, { x: 0, y: 0, z: 10, duration: 1 });
+      }
+      if (isStoryPage && cameraRef.current) {
+        gsap.to(cameraRef.current.position, { x: 0, y: 0, z: 8, duration: 1 });
+      }
+      return;
+    }
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -53,7 +77,7 @@ export default function Scene() {
     tl.to(dishRef.current.position, {
       x: isMobile ? 0 : -3 * (viewport.width / 10),
       y: isMobile ? 0.5 : 0.1,
-      z: isMobile ? 2.5 : 2.5, // Move closer for "Synthesis"
+      z: isMobile ? 2.5 : 2.5,
       duration: 1,
       ease: "power3.inOut"
     }, 1)
@@ -67,76 +91,18 @@ export default function Scene() {
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill());
     };
-  }, [viewport, isMobile]);
-
-  const isBookingOpen = useStore((state) => state.isBookingOpen);
-  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
-
-  useLayoutEffect(() => {
-    if (!cameraRef.current || !dishRef.current) return;
-
-    if (isBookingOpen) {
-      // Transition to Booking Portal
-      gsap.to(cameraRef.current.position, {
-        x: isMobile ? 0 : 5,
-        y: isMobile ? 5 : 1,
-        z: isMobile ? 8 : 4,
-        duration: 1.5,
-        ease: "power3.inOut"
-      });
-      gsap.to(dishRef.current.scale, {
-        x: 0.5,
-        y: 0.5,
-        z: 0.5,
-        duration: 1,
-        ease: "power2.inOut"
-      });
-      gsap.to(dishRef.current.position, {
-        x: -5,
-        duration: 1.5,
-        ease: "power3.inOut"
-      });
-    } else {
-      // Reset from Booking Portal based on current scroll position
-      // For simplicity in this prototype, we reset to a neutral state
-      gsap.to(cameraRef.current.position, {
-        x: 0,
-        y: 0,
-        z: isMobile ? 10 : 8,
-        duration: 1.5,
-        ease: "power3.inOut"
-      });
-      gsap.to(dishRef.current.scale, {
-        x: 1,
-        y: 1,
-        z: 1,
-        duration: 1,
-        ease: "power2.inOut"
-      });
-    }
-  }, [isBookingOpen, isMobile]);
+  }, [viewport, isMobile, isMenuPage, isGalleryPage, isStoryPage]);
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
-    
     if (groupRef.current) {
       groupRef.current.position.y = Math.sin(time * 0.5) * 0.05;
     }
-
     if (lightRef.current) {
       const targetX = state.mouse.x * 5;
       const targetY = state.mouse.y * 5;
-      
-      lightRef.current.position.x = THREE.MathUtils.lerp(
-        lightRef.current.position.x,
-        10 + targetX,
-        0.05
-      );
-      lightRef.current.position.y = THREE.MathUtils.lerp(
-        lightRef.current.position.y,
-        10 + targetY,
-        0.05
-      );
+      lightRef.current.position.x = THREE.MathUtils.lerp(lightRef.current.position.x, 10 + targetX, 0.05);
+      lightRef.current.position.y = THREE.MathUtils.lerp(lightRef.current.position.y, 10 + targetY, 0.05);
     }
   });
 
@@ -145,20 +111,14 @@ export default function Scene() {
       <PerspectiveCamera 
         ref={cameraRef}
         makeDefault 
-        position={[0, 0, isMobile ? 10 : 8]} 
+        position={[0, 0, isMenuPage ? 12 : (isGalleryPage ? 10 : (isMobile ? 10 : 8))]} 
         fov={isMobile ? 60 : 45} 
       />
       
       <Environment preset="night" />
       <ambientLight intensity={0.15} />
       <SpatialAudioController />
-      
-      {isBookingOpen && (
-        <group>
-          <BookingPortal />
-          <BookingGlassForm />
-        </group>
-      )}
+      <LiquifyOverlay />
       
       <spotLight 
         ref={lightRef}
@@ -170,17 +130,24 @@ export default function Scene() {
         color="#d4af37"
       />
 
-      <group ref={dishRef}>
-        <LuxuryDish />
-      </group>
+      <Suspense fallback={null}>
+        {isMenuPage && <MenuCarousel />}
+        {isGalleryPage && <GalleryScene />}
+        {isStoryPage && <StoryScene />}
+        {!isMenuPage && !isGalleryPage && !isStoryPage && (
+          <group ref={dishRef}>
+            <LuxuryDish />
+            {isBookingOpen && (
+              <group>
+                <BookingPortal />
+                <BookingGlassForm />
+              </group>
+            )}
+          </group>
+        )}
+      </Suspense>
 
-      <ContactShadows 
-        position={[0, -3.5, 0]} 
-        opacity={0.4} 
-        scale={20} 
-        blur={2.5} 
-        far={5} 
-      />
+      <ContactShadows position={[0, -3.5, 0]} opacity={0.4} scale={20} blur={2.5} far={5} />
     </group>
   );
 }

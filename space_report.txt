@@ -1,0 +1,64 @@
+DIR | PhD | 95.10 GB
+DIR | AUT Masters | 24.68 GB
+DIR | Freelance | 17.29 GB
+DIR | Screen Recordings | 4.28 GB
+DIR | JOB - NASTP | 3.61 GB
+DIR | Sign Language Recognition Using Image Processing and Machine Learning | 2.48 GB
+DIR | Websites Marketing | 2.34 GB
+DIR | Pose Estimation | 1.09 GB
+DIR | Presagistools | 0.98 GB
+DIR | Trading | 0.83 GB
+DIR | VisionVault-CV-Suite | 0.78 GB
+DIR | AI Driven Repurposing Engine | 0.75 GB
+DIR | 3D + Motion Graphics | 0.62 GB
+DIR | snakey | 0.56 GB
+DIR | Websites-Marketing-publish | 0.48 GB
+DIR | AI Receptionist | 0.47 GB
+DIR | PDF Solution | 0.34 GB
+DIR | Convocation | 0.31 GB
+DIR | Number Plate Recognition System | 0.29 GB
+DIR | PCB | 0.28 GB
+DIR | Scrapling | 0.27 GB
+DIR | Multilingual Text Intelligence System | 0.21 GB
+DIR | EMIMEP | 0.17 GB
+DIR | Haider Projects | 0.15 GB
+DIR | Chatbot | 0.12 GB
+DIR | Manuscript | 0.12 GB
+DIR | Upwork Automatic Proposal Sender | 0.10 GB
+DIR | Masters | 0.10 GB
+DIR | shop-chatbot | 0.08 GB
+DIR | I-EML | 0.04 GB
+DIR | Testamonial | 0.04 GB
+DIR | RL-Based Active Vibration Control for UAV Gimbals | 0.03 GB
+DIR | Multi-Agent RL for Autonomous Drone Swarms | 0.02 GB
+DIR | WSU - Assignment | 0.01 GB
+DIR | Interviews | 0.01 GB
+DIR | Uzair | 0.01 GB
+DIR | Adaptive Power Management for Microgrids | 0.01 GB
+DIR | Apply to Jobs | 0.01 GB
+DIR | E - PICO | 0.01 GB
+DIR | GoSC | 0.00 GB
+DIR | Freelance_secure | 0.00 GB
+DIR | Upwork Proposal Extension | 0.00 GB
+DIR | AUT | 0.00 GB
+DIR | DREAM | 0.00 GB
+DIR | n8n | 0.00 GB
+FILE | EMIMEP.zip | 0.00 GB
+DIR | TinyML RL for Low-Power Embedded Control | 0.00 GB
+DIR | Fusion | 0.00 GB
+DIR | Altium | 0.00 GB
+DIR | Image Draft Proposal | 0.00 GB
+FILE | AiThinker A7670[1].docx | 0.00 GB
+DIR | Job Description | 0.00 GB
+FILE | desktop.ini | 0.00 GB
+DIR | Captures | 0.00 GB
+DIR | AnyDesk | 0.00 GB
+DIR | ESP32 | 0.00 GB
+DIR | Face De Aging - Aging | 0.00 GB
+DIR | Freelance_secure_secure | 0.00 GB
+DIR | Human Pose Estimation And Action Recognition in Crowded Scenes | 0.00 GB
+DIR | New folder | 0.00 GB
+DIR | NVIDIA | 0.00 GB
+DIR | Supabase | 0.00 GB
+DIR | Timeline Studio | 0.00 GB
+DIR | Unsupervised Anomaly Detection in Industrial Inspection | 0.00 GB
